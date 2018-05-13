@@ -10,6 +10,7 @@ client_sock, client_info= server_sock.accept()
 print("Connected with ", client_info)
 
 connected = True
+Drivetrain.enable(True)
 
 while connected:
     data = client_sock.recv(1024)

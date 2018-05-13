@@ -7,7 +7,7 @@ from Bluetooth import *
 rightMotors = PiMotor.Motor("MOTOR1",1)
 leftMotors = PiMotor.Motor("MOTOR2",1)
 mode = 0
-run = True
+run = False
 data = None
 
 #ultrasonic = PiMotor.Sensor("ULTRASONIC", 1)
@@ -44,6 +44,8 @@ class Motors:
         leftMotors.stop()
         rightMotors.stop()
 
+def enable(enable):
+    run = enable
 
 
 while run:
