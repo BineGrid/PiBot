@@ -8,7 +8,6 @@ rightMotors = PiMotor.Motor("MOTOR1",1)
 leftMotors = PiMotor.Motor("MOTOR2",1)
 mode = 0
 run = True
-global data
 data = None
 
 #ultrasonic = PiMotor.Sensor("ULTRASONIC", 1)
@@ -19,6 +18,29 @@ def setData(cmd):
         
 def getData():
     return data
+
+def driveMotors(speed):
+    correctedSpeed = speed*100
+    if correctedSpeed > 0:
+        rightMotors.forward(correctedSpeed)
+        leftMotors.forward(correctedSpeed)
+    elif correctedSpeed < 0:
+        rightMotors.reverse(correctedSpeed)
+        leftMotors.reverse(correctedSpeed)
+
+def turnMotors(speed):
+    correctedSpeed = speed*100
+    if correctedSpeed > 0:
+        rightMotors.reverse(correctedSpeed)
+        leftMotors.forward(correctedSpeed)
+    elif correctedSpeed < 0:
+        rightMotors.forward(correctedSpeed)
+        leftMotors.reverse(correctedSpeed)
+
+def stopMotors():
+    leftMotors.stop()
+    rightMotors.stop()
+
 
 
 while run:
@@ -32,20 +54,15 @@ while run:
         
     if mode == 1:
         if data == "Forward":
-            rightMotors.forward(100)
-            leftMotors.forward(100)
+            driveMotors(1)
         elif data == "Backward":
-            rightMotors.reverse(100)
-            leftMotors.reverse(100)
+            driveMotors(-1)
         elif data == "Left":
-            rightMotors.forward(100)
-            leftMotors.reverse(100)
+            turnMotors(-1)
         elif data == "Right":
-            rightMotors.reverse(100)
-            leftMotors.forward(100)
+            turnMotors(1)
         else:
-            rightMotors.stop()
-            leftMotors.stop()
+            stopMotors()
                 
     if mode == 2:
         randNum = random.randint(50,300)
