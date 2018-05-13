@@ -13,33 +13,36 @@ data = None
 #ultrasonic = PiMotor.Sensor("ULTRASONIC", 1)
 #ultrasonic.sonicCheck()
 
-def setData(cmd):
-    data = cmd
+
+class Data:
+    def setData(cmd):
+        data = cmd
+            
+    def getData():
+        return data
         
-def getData():
-    return data
+class Motors:
+    def driveMotors(speed):
+        correctedSpeed = speed*100
+        if correctedSpeed > 0:
+            rightMotors.forward(correctedSpeed)
+            leftMotors.forward(correctedSpeed)
+        elif correctedSpeed < 0:
+            rightMotors.reverse(correctedSpeed)
+            leftMotors.reverse(correctedSpeed)
 
-def driveMotors(speed):
-    correctedSpeed = speed*100
-    if correctedSpeed > 0:
-        rightMotors.forward(correctedSpeed)
-        leftMotors.forward(correctedSpeed)
-    elif correctedSpeed < 0:
-        rightMotors.reverse(correctedSpeed)
-        leftMotors.reverse(correctedSpeed)
+    def turnMotors(speed):
+        correctedSpeed = speed*100
+        if correctedSpeed > 0:
+            rightMotors.reverse(correctedSpeed)
+            leftMotors.forward(correctedSpeed)
+        elif correctedSpeed < 0:
+            rightMotors.forward(correctedSpeed)
+            leftMotors.reverse(correctedSpeed)
 
-def turnMotors(speed):
-    correctedSpeed = speed*100
-    if correctedSpeed > 0:
-        rightMotors.reverse(correctedSpeed)
-        leftMotors.forward(correctedSpeed)
-    elif correctedSpeed < 0:
-        rightMotors.forward(correctedSpeed)
-        leftMotors.reverse(correctedSpeed)
-
-def stopMotors():
-    leftMotors.stop()
-    rightMotors.stop()
+    def stopMotors():
+        leftMotors.stop()
+        rightMotors.stop()
 
 
 

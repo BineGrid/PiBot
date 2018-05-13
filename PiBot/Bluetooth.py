@@ -22,6 +22,7 @@ while connected:
         connected = False
         print("Disconnected")
         
-    Drivetrain.setData(data)
+    Drivetrain.Data.setData(data)
+
 
 
