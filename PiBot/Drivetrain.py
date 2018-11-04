@@ -13,15 +13,16 @@ data = None
 #ultrasonic = PiMotor.Sensor("ULTRASONIC", 1)
 #ultrasonic.sonicCheck()
 
-class Data:
-    def setData(cmd):
-        data = cmd
+def setData(cmd):
+    global data
+    data = cmd
         
-    def enable(enable):
-        run = enable
+def enable(enable):
+    global run
+    run = enable
                 
-    def getData():
-        return data
+def getData():
+    return data
         
 
 def driveMotors(speed):
@@ -30,8 +31,8 @@ def driveMotors(speed):
         rightMotors.forward(correctedSpeed)
         leftMotors.forward(correctedSpeed)
     elif correctedSpeed < 0:
-        rightMotors.reverse(correctedSpeed)
-        leftMotors.reverse(correctedSpeed)
+        rightMotors.reverse(-correctedSpeed)
+        leftMotors.reverse(-correctedSpeed)
 
 def turnMotors(speed):
     correctedSpeed = speed*100
@@ -39,15 +40,15 @@ def turnMotors(speed):
         rightMotors.reverse(correctedSpeed)
         leftMotors.forward(correctedSpeed)
     elif correctedSpeed < 0:
-        rightMotors.forward(correctedSpeed)
-        leftMotors.reverse(correctedSpeed)
+        rightMotors.forward(-correctedSpeed)
+        leftMotors.reverse(-correctedSpeed)
 
 def stopMotors():
     leftMotors.stop()
     rightMotors.stop()
 
-while run:
-    
+def runDrivetrain():
+    global mode
     if data == "Park":
          mode = 0
     elif data == "Teleop":

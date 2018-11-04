@@ -11,7 +11,7 @@ client_sock, client_info = server_sock.accept()
 print("Connected with ", client_info)
 
 connected = True
-Drivetain.Data.enable(True)
+#Drivetrain.enable(True)
 
 while True:
     data = client_sock.recv(1024)
@@ -24,7 +24,8 @@ while True:
         connected = False
         print("Disconnected")
         
-    Drivetrain.Data.setData(data)
+    Drivetrain.setData(data)
+    Drivetrain.runDrivetrain()
 
 
 
