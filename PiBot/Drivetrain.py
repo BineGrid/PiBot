@@ -2,7 +2,7 @@ import PiMotor
 import RPi.GPIO as GPIO  
 import time
 import random
-from Bluetooth import *
+#from BluetoothConnection import *
 
 rightMotors = PiMotor.Motor("MOTOR1",1)
 leftMotors = PiMotor.Motor("MOTOR2",1)
@@ -13,40 +13,38 @@ data = None
 #ultrasonic = PiMotor.Sensor("ULTRASONIC", 1)
 #ultrasonic.sonicCheck()
 
-
 class Data:
     def setData(cmd):
         data = cmd
-            
+        
+    def enable(enable):
+        run = enable
+                
     def getData():
         return data
         
-class Motors:
-    def driveMotors(speed):
-        correctedSpeed = speed*100
-        if correctedSpeed > 0:
-            rightMotors.forward(correctedSpeed)
-            leftMotors.forward(correctedSpeed)
-        elif correctedSpeed < 0:
-            rightMotors.reverse(correctedSpeed)
-            leftMotors.reverse(correctedSpeed)
 
-    def turnMotors(speed):
-        correctedSpeed = speed*100
-        if correctedSpeed > 0:
-            rightMotors.reverse(correctedSpeed)
-            leftMotors.forward(correctedSpeed)
-        elif correctedSpeed < 0:
-            rightMotors.forward(correctedSpeed)
-            leftMotors.reverse(correctedSpeed)
+def driveMotors(speed):
+    correctedSpeed = speed*100
+    if correctedSpeed > 0:
+        rightMotors.forward(correctedSpeed)
+        leftMotors.forward(correctedSpeed)
+    elif correctedSpeed < 0:
+        rightMotors.reverse(correctedSpeed)
+        leftMotors.reverse(correctedSpeed)
 
-    def stopMotors():
-        leftMotors.stop()
-        rightMotors.stop()
+def turnMotors(speed):
+    correctedSpeed = speed*100
+    if correctedSpeed > 0:
+        rightMotors.reverse(correctedSpeed)
+        leftMotors.forward(correctedSpeed)
+    elif correctedSpeed < 0:
+        rightMotors.forward(correctedSpeed)
+        leftMotors.reverse(correctedSpeed)
 
-def enable(enable):
-    run = enable
-
+def stopMotors():
+    leftMotors.stop()
+    rightMotors.stop()
 
 while run:
     
